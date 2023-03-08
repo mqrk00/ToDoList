@@ -1,0 +1,21 @@
+.project{
+    border: 1px solid black;
+}
+#content{
+    height: 500px;
+    display: flex;
+}
+#sidebar{
+    flex: 30%;
+    background-color: rgb(197, 197, 197);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#mainContainer{
+    flex: 70%;
+    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
