@@ -1,37 +1,46 @@
+const toDoManager = (() => {
+  const project = (ProjectName) => {
 
-const toDoManager =  (() => {
+    let todos = [];
 
-    const createTodos = (title, description, dueDate, priority) => {
-        const getTitle = () => title;
-        const getDescription = () => description;
-        const getDueDate = () => dueDate;
-        const getPriority = () => priority;
-      
-        return { getTitle, getDescription, getDueDate, getPriority };
-      };
-      
-      const makeTodo = () => {
-        const todo = createTodos("title", "desc", "date", 12);
-        return todo;
-      };
+    const getProjectName = () => ProjectName;
+    const getTodos = () => todos;
 
-    let project = [];
+    return { getProjectName, getTodos };
+  };
 
 
-  const addToProject = () => {
-    project.push(makeTodo());
+  const makeProject = () => {
+    const proj = project("ProjectName");
+    addToProjectsArray(proj);
+    return proj;
+  };
+
+  const createTodos = (title, description, dueDate, priority) => {
+    const getTitle = () => title;
+    const getDescription = () => description;
+    const getDueDate = () => dueDate;
+    const getPriority = () => priority;
+
+    return { getTitle, getDescription, getDueDate, getPriority };
+  };
+
+  const makeTodo = () => {
+    const todo = createTodos("title", "desc", "date", 12);
+    return todo;
+  };
+
+  const addTodoToProject = (proj) => {
+    proj.getTodos().push(makeTodo());
   };
 
   let projectsArray = [];
 
-  const addToProjectsArray = () => {
-    projectsArray.push(project);
+  const addToProjectsArray = (proj) => {
+    projectsArray.push(proj);
   };
 
-  const getProject = ()=>  project;
-
-
-  return {createTodos,getProject,addToProject,addToProjectsArray};
+  return { addTodoToProject, makeProject,projectsArray};
 })();
 
-export {toDoManager};
+export { toDoManager };

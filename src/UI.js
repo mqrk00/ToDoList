@@ -21,16 +21,15 @@ const screenController = (()=> {
     }
     loadPage();
 
-
     const addProject = ()=> {
-
-        toDoManager.createTodos();
-        toDoManager.addToProject();
-        const index = toDoManager.getProject().length-1;
+        
+        const proj = toDoManager.makeProject(); 
+        const index = toDoManager.projectsArray.length-1;
+        console.log(index);
         const projectDiv = document.createElement("div");
         projectDiv.classList.add("project");
         mainContainer.appendChild(projectDiv);
-        addTodoBtn(index); 
+        addTodoBtn(index,proj); 
 
     }
    addProjectButton.addEventListener("click",addProject);
@@ -40,27 +39,28 @@ const screenController = (()=> {
         project[index].appendChild(element);
 
     }
-    const addTodoBtn = (index)=> {
+    const addTodoBtn = (index,proj)=> {
+
         const addTodoButton = document.createElement("button");
         addTodoButton.textContent = "ADD TASK";
         addTodoButton.classList.add("addTodoBtn");
         appendToProject(index,addTodoButton);
-        addTodoButton.addEventListener("click",()=> addTodo(index));
-
+        addTodoButton.addEventListener("click",()=> addTodo(index,proj));
         
     }
 
 
-    const addTodo = (index)=>{ 
-        const project = document.querySelectorAll(".project");
+    const addTodo = (index,proj)=>{ 
+        toDoManager.addTodoToProject(proj);
+        const addTodoButton = document.querySelectorAll(".addTodoBtn");
         const title = document.createElement("p");
         const description = document.createElement("p");
 
-        title.textContent = toDoManager.getProject()[index].getTitle();
-        description.textContent = toDoManager.getProject()[index].getDescription();
+        title.textContent = toDoManager.projectsArray[index].getTodos()[index].getTitle();
+        description.textContent = toDoManager.projectsArray[index].getTodos()[index].getDescription();
         
-        appendToProject(index,title);
-        appendToProject(index,description);
+        addTodoButton[index].before(title);
+        addTodoButton[index].before(description);   
 
     }
 })();
